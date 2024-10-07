@@ -1,0 +1,23 @@
+{
+  "name": "web-scrapper-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "api/index.js",
+  "scripts": {
+    "start": "node api/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sharkmaster999/web-scrapper-app.git"
+  },
+  "author": "Remuelito Remulta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sharkmaster999/web-scrapper-app/issues"
+  },
+  "homepage": "https://github.com/sharkmaster999/web-scrapper-app#readme",
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}
