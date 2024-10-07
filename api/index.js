@@ -1,5 +1,7 @@
 const express = require('express');
 const { getPageText } = require('../services/scraper');
+const { summarizeText } = require('../services/llm');
+
 const app = express();
 
 app.use(express.json());
@@ -14,7 +16,9 @@ app.post('/jobs', async(req, res) => {
         const textContent = await getPageText(url);
         if (!textContent) throw new Error('Failed to fetch content from the URL');
 
-        res.json({textContent});
+        const summaryText = await summarizeText(textContent);
+
+        res.json({summaryText});
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
