@@ -21,5 +21,17 @@ services:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: ${DB_HOST}
+      PMA_USER: ${DB_USER}
+      PMA_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./phpadmin-sessions:/sessions
 volumes:
   db_data:
