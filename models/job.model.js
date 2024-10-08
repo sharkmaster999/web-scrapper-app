@@ -26,37 +26,52 @@ const Jobs = sequelize.define("jobs", {
 });
 
 async function createJob(url) {
-    await openConnection();
+    let lastInsertedJob = null;
 
-    await sequelize.sync();
+    try {
+        await openConnection();
 
-    await Jobs.create({
-        url: url
-    });
+        await sequelize.sync();
 
-    const lastInsertedJob = await Job.findOne({
-        order: [['createdAt', 'DESC']],
-    });
+        await Jobs.create({
+            url: url
+        });
 
-    await closeConnection();
-    
-    return lastInsertedJob.toJSON();
+        lastInsertedJob = await Jobs.findOne({
+            order: [['createdAt', 'DESC']],
+        });
+    } catch (error) {
+        console.error('Error creating job:', error);
+    } finally {
+        await closeConnection();
+    }
+
+    return lastInsertedJob ? lastInsertedJob.toJSON() : null;
 }
 
 async function updateJob(id, status, error = '') {
-    await openConnection();
+    let updatedJob = null;
 
-    await sequelize.sync();
+    try {
+        await openConnection();
 
-    await Jobs.update({ status: status, error: error }, {
-        where: { id: id }
-    });
+        await sequelize.sync();
 
-    const updatedJob = await Jobs.findOne({ id: id });
+        await Jobs.update(
+            { status: status, error_message: error },
+            { where: { id: id } }
+        );
 
-    await closeConnection();
+        updatedJob = await Jobs.findOne({
+            where: { id: id },
+        });
+    } catch (error) {
+        console.error('Error updating job:', error);
+    } finally {
+        await closeConnection();
+    }
 
-    return updatedJob.toJSON();
+    return updatedJob ? updatedJob.toJSON() : null;
 }
 
 module.exports = { createJob, updateJob };
