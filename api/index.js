@@ -38,7 +38,7 @@ app.get('/jobs', async(req, res) => {
 setInterval(() => {
     console.log('Checking for pending jobs...');
     processPendingJobs();
-}, 6000);
+}, 60000);
 
 app.listen(3000, () => {
     console.log('Server running on port 3000');
