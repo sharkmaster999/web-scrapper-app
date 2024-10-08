@@ -1,6 +1,7 @@
 
 const { getPageText } = require('../services/scraper');
 const { getAllPendingJobs, updateJob, addResult } = require('../models/job.model');
+const { summarizeText } = require('../services/llm');
 
 async function processPendingJobs() {
     try {
@@ -9,10 +10,13 @@ async function processPendingJobs() {
         for (const job of allPendingJobs) {
             const textContent = await getPageText(job.url);
 
-            // TODO: Summarize text from scraped contents
-            // const summaryText = await summarizeText(textContent);
-
-            await addResult(job.id, textContent);
+            const convertedText = await summarizeText(textContent);
+            if(!convertedText) {
+                await updateJob(job.id, 'failed', 'Failed to scrape content from the URL');
+                return;
+            }
+            
+            await addResult(job.id, convertedText);
             await updateJob(job.id, 'completed');
         }
     } catch (error) {
