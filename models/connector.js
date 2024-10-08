@@ -21,7 +21,7 @@ async function closeConnection() {
     try {
         await sequelize.close();
     } catch (error) {
-        console.error('Unable to connect to database: ', error);
+        console.error('Internal server error: ', error);
     }
 }
 

@@ -1,7 +1,7 @@
 
 const { getPageText } = require('../services/scraper');
-const { getAllPendingJobs, updateJob, addResult } = require('../models/job.model');
 const { summarizeText } = require('../services/llm');
+const { getAllPendingJobs, updateJob, addResult } = require('../models/job.model');
 
 async function processPendingJobs() {
     try {
@@ -20,7 +20,7 @@ async function processPendingJobs() {
             await updateJob(job.id, 'completed');
         }
     } catch (error) {
-        console.error("Error: ", error);
+        console.error("Error information: ", error);
     }
 }
 

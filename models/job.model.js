@@ -1,4 +1,4 @@
-const { openConnection, closeConnection, sequelize } = require('./connector');
+const { openConnection, sequelize } = require('./connector');
 const { Sequelize, DataTypes } = require('sequelize');
 require('dotenv').config();
 
@@ -58,7 +58,7 @@ async function createJob(url) {
 
         return lastInsertedJob ? lastInsertedJob.toJSON() : null;
     } catch (error) {
-        console.error('Error creating job:', error);
+        console.error('Error creating job queued:', error);
     }
 }
 
@@ -81,7 +81,7 @@ async function updateJob(id, status, error = '') {
 
         return updatedJob ? updatedJob.toJSON() : null;
     } catch (error) {
-        console.error('Error updating job:', error);
+        console.error('Error updating job queue:', error);
     }
 }
 
@@ -115,7 +115,7 @@ async function getAllJobs() {
 
         return allJobs;
     } catch (error) {
-        console.error('Error getting all job:', error);
+        console.error('Error getting all done jobs queued:', error);
     }
 }
 
@@ -133,7 +133,7 @@ async function getAllPendingJobs() {
 
         return jobs;
     } catch (error) {
-        console.error('Error getting all job:', error);
+        console.error('Error getting all pending jobs queued:', error);
     }
 }
 
@@ -156,7 +156,7 @@ async function addResult(job_id, summary) {
 
         return lastInsertedResult ? lastInsertedResult.toJSON() : null;
     } catch (error) {
-        console.error('Error creating result:', error);
+        console.error('Error creating results:', error);
     }
 }
 
