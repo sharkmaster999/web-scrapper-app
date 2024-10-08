@@ -46,8 +46,6 @@ async function createJob(url) {
     try {
         await openConnection();
 
-        await sequelize.sync();
-
         await Jobs.create({
             url: url
         });
@@ -68,8 +66,6 @@ async function updateJob(id, status, error = '') {
     try {
         await openConnection();
 
-        await sequelize.sync();
-
         await Jobs.update(
             { status: status, error_message: error },
             { where: { id: id } }
@@ -89,8 +85,6 @@ async function getAllJobs() {
     let allJobs = [];
     try {
         await openConnection();
-
-        await sequelize.sync();
 
         const jobs = await Jobs.findAll({
             where: {
@@ -123,8 +117,6 @@ async function getAllPendingJobs() {
     try {
         await openConnection();
 
-        await sequelize.sync();
-
         const jobs = await Jobs.findAll({
             where: {
                 status: 'pending'
@@ -142,8 +134,6 @@ async function addResult(job_id, summary) {
 
     try {
         await openConnection();
-
-        await sequelize.sync();
 
         await Results.create({
             summary: summary,
