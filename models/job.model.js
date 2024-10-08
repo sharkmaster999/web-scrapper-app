@@ -101,7 +101,7 @@ async function getAllJobs() {
         });
 
         for (const job of jobs) {
-            const result = await Results.findOne({job_id: job.id});
+            const result = (job.status === 'completed' ? await Results.findOne({job_id: job.id}) : '');
 
             const jobInfo = {
                 id: job.id,
