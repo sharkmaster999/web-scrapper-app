@@ -1,7 +1,7 @@
 const express = require('express');
 const { getPageText } = require('../services/scraper');
 // const { summarizeText } = require('../services/llm');
-const { createJob } = require('../models/job.model');
+const { createJob, updateJob } = require('../models/job.model');
 const app = express();
 
 app.use(express.json());
@@ -28,6 +28,7 @@ app.post('/jobs', async(req, res) => {
         //     return res.status(500).json({id: 1, url: url, status: "failed", error_text: newJob});
         // }
 
+        await updateJob(newJob.id, "completed");
         return res.json({id: 1, url: url, status: "completed", summary: textContent});
     } catch (error) {
         return res.status(500).json({id: 1, url: url, status: "failed", error_text: error});

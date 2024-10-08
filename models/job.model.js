@@ -43,4 +43,20 @@ async function createJob(url) {
     return lastInsertedJob.toJSON();
 }
 
-module.exports = { createJob };
+async function updateJob(id, status, error = '') {
+    await openConnection();
+
+    await sequelize.sync();
+
+    await Jobs.update({ status: status, error: error }, {
+        where: { id: id }
+    });
+
+    const updatedJob = await Jobs.findOne({ id: id });
+
+    await closeConnection();
+
+    return updatedJob.toJSON();
+}
+
+module.exports = { createJob, updateJob };
