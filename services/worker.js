@@ -11,7 +11,7 @@ async function processPendingJobs() {
             const textContent = await getPageText(job.url);
 
             const convertedText = await summarizeText(textContent);
-            if(!convertedText) {
+            if(!textContent && !convertedText) {
                 await updateJob(job.id, 'failed', 'Failed to scrape content from the URL');
                 return;
             }

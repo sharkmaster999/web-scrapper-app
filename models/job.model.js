@@ -101,11 +101,13 @@ async function getAllJobs() {
         });
 
         for (const job of jobs) {
+            const result = await Results.findOne({job_id: job.id});
+
             const jobInfo = {
                 id: job.id,
                 url: job.url,
                 status: job.status,
-                message: job.status === 'failed' ? job.error_message : ""
+                [job.status === 'failed' ? 'error_message' : 'summary']: job.status === 'failed' ? job.error_message : result.summary
             }
 
             allJobs.push(jobInfo);
