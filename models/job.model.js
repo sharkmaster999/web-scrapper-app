@@ -25,7 +25,7 @@ const Jobs = sequelize.define("jobs", {
     }
 });
 
-const Results = sequelize.define("jobs", {
+const Results = sequelize.define("results", {
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -105,4 +105,45 @@ async function getAllJobs() {
     }
 }
 
-module.exports = { createJob, updateJob, getAllJobs };
+async function getAllPendingJobs() {
+    try {
+        await openConnection();
+
+        await sequelize.sync();
+
+        const jobs = await Jobs.findAll({
+            where: {
+                status: 'pending'
+            }
+        });
+
+        return jobs;
+    } catch (error) {
+        console.error('Error getting all job:', error);
+    }
+}
+
+async function addResult(job_id, summary) {
+    let lastInsertedResult = null;
+
+    try {
+        await openConnection();
+
+        await sequelize.sync();
+
+        await Results.create({
+            summary: summary,
+            job_id: job_id
+        });
+
+        lastInsertedResult = await Results.findOne({
+            order: [['createdAt', 'DESC']],
+        });
+
+        return lastInsertedResult ? lastInsertedResult.toJSON() : null;
+    } catch (error) {
+        console.error('Error creating result:', error);
+    }
+}
+
+module.exports = { createJob, updateJob, getAllJobs, getAllPendingJobs, addResult };

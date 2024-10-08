@@ -1,8 +1,8 @@
 const express = require('express');
-const { getPageText } = require('../services/scraper');
-// const { summarizeText } = require('../services/llm');
-const { createJob, updateJob, getAllJobs } = require('../models/job.model');
 const app = express();
+
+const { createJob, getAllJobs } = require('../models/job.model');
+const { processPendingJobs } = require('../services/worker');
 
 app.use(express.json());
 
@@ -14,20 +14,6 @@ app.post('/jobs', async(req, res) => {
     const { url } = req.body;
     try {
         const newJob = await createJob(url);
-        // const textContent = await getPageText(url);
-        // if (!textContent) {
-        //     await updateJob(id, "failed", "Failed to scrape content from the URL");
-        //     return res.status(500).json({id: newJob.id, url: newJob.url, status: "failed", error_text: "Failed to scrape content from the URL"});
-        // }
-
-        // TODO: Summarize text from scraped contents
-
-        // const summaryText = await summarizeText(textContent);
-        // if (!summaryText) {
-        //     await updateJob(id, "failed", "Failed to scrape content from the URL");
-        //     return res.status(500).json({id: 1, url: url, status: "failed", error_text: newJob});
-        // }
-
         return res.json({
             id: newJob.id,
             url: newJob.url,
@@ -48,6 +34,11 @@ app.get('/jobs', async(req, res) => {
         return res.status(500).json({ error_text: "Internal server error" });
     }
 });
+
+setInterval(() => {
+    console.log('Checking for pending jobs...');
+    processPendingJobs();
+}, 6000);
 
 app.listen(3000, () => {
     console.log('Server running on port 3000');
