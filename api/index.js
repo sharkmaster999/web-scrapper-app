@@ -34,7 +34,8 @@ app.post('/jobs', async(req, res) => {
             status: newJob.status
         });
     } catch (error) {
-        return res.status(500).json({id: 1, url: url, status: "failed", error_text: error});
+        console.error("Error: ", error);
+        return res.status(500).json({ error_text: "Internal server error" });
     }
 });
 
@@ -43,7 +44,8 @@ app.get('/jobs', async(req, res) => {
         const allJobs = await getAllJobs();
         res.json(allJobs);
     } catch (error) {
-        return res.status(500).json({ error_text: error });
+        console.error("Error: ", error);
+        return res.status(500).json({ error_text: "Internal server error" });
     }
 });
 
