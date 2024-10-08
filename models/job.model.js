@@ -86,6 +86,7 @@ async function updateJob(id, status, error = '') {
 }
 
 async function getAllJobs() {
+    let allJobs = [];
     try {
         await openConnection();
 
@@ -99,7 +100,18 @@ async function getAllJobs() {
             }
         });
 
-        return jobs.map(job => job.toJSON());
+        for (const job of jobs) {
+            const jobInfo = {
+                id: job.id,
+                url: job.url,
+                status: job.status,
+                message: job.status === 'failed' ? job.error_message : ""
+            }
+
+            allJobs.push(jobInfo);
+        }
+
+        return allJobs;
     } catch (error) {
         console.error('Error getting all job:', error);
     }
