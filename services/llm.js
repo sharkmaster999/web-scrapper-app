@@ -1,5 +1,6 @@
 const OpenAI = require('openai');
 require('dotenv').config();
+const { logger } = require('../services/logger');
 
 const client = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY
@@ -23,6 +24,7 @@ async function summarizeText(text) {
         }
         return responseText;
     } catch (error) {
+        logger.error("Error in LLM: ", error);
         return null;
     }
 }

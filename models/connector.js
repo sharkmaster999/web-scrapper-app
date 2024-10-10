@@ -1,5 +1,6 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
+const { logger } = require('../services/logger');
 
 const sequelize = new Sequelize({
     username: process.env.DB_USER,
@@ -14,7 +15,7 @@ async function openConnection() {
         await sequelize.authenticate();
         await sequelize.sync();
     } catch (error) {
-        console.error('Unable to connect to database: ', error);
+        logger.error('Unable to connect to database: ', error);
     }
 }
 
@@ -22,7 +23,7 @@ async function closeConnection() {
     try {
         await sequelize.close();
     } catch (error) {
-        console.error('Internal server error: ', error);
+        logger.error('Internal server error: ', error);
     }
 }
 

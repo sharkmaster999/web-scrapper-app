@@ -1,6 +1,7 @@
 const { openConnection, sequelize } = require('./connector');
 const { Sequelize, DataTypes } = require('sequelize');
 require('dotenv').config();
+const { logger } = require('../services/logger');
 
 const Jobs = sequelize.define("jobs", {
     id: {
@@ -56,7 +57,7 @@ async function createJob(url) {
 
         return lastInsertedJob ? lastInsertedJob.toJSON() : null;
     } catch (error) {
-        console.error('Error creating job queued:', error);
+        logger.error('Error creating job queued:', error);
     }
 }
 
@@ -77,7 +78,7 @@ async function updateJob(id, status, error = '') {
 
         return updatedJob ? updatedJob.toJSON() : null;
     } catch (error) {
-        console.error('Error updating job queue:', error);
+        logger.error('Error updating job queue:', error);
     }
 }
 
@@ -109,7 +110,7 @@ async function getAllJobs() {
 
         return allJobs;
     } catch (error) {
-        console.error('Error getting all done jobs queued:', error);
+        logger.error('Error getting all done jobs queued:', error);
     }
 }
 
@@ -125,7 +126,7 @@ async function getAllPendingJobs() {
 
         return jobs;
     } catch (error) {
-        console.error('Error getting all pending jobs queued:', error);
+        logger.error('Error getting all pending jobs queued:', error);
     }
 }
 
@@ -146,7 +147,7 @@ async function addResult(job_id, summary) {
 
         return lastInsertedResult ? lastInsertedResult.toJSON() : null;
     } catch (error) {
-        console.error('Error creating results:', error);
+        logger.error('Error creating results:', error);
     }
 }
 

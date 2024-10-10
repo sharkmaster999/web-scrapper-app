@@ -1,5 +1,6 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
+const { logger } = require('../services/logger');
 
 async function getPageText(url) {
     try {
@@ -7,7 +8,7 @@ async function getPageText(url) {
         const $ = cheerio.load(data);
         return $('body').text(); 
     } catch (error) {
-        console.error('Error fetching webpage:', error);
+        logger.error('Error fetching webpage:', error);
         return null;
     }
 }

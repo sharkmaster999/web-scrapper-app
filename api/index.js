@@ -3,6 +3,7 @@ const app = express();
 
 const { createJob, getAllJobs } = require('../models/job.model');
 const { processPendingJobs } = require('../services/worker');
+const { logger } = require('../services/logger');
 
 app.use(express.json());
 
@@ -20,7 +21,7 @@ app.post('/jobs', async(req, res) => {
             status: newJob.status
         });
     } catch (error) {
-        console.error("Error information: ", error);
+        logger.error("Error information: ", error);
         return res.status(500).json({ error_text: "Internal server error" });
     }
 });
@@ -30,16 +31,16 @@ app.get('/jobs', async(req, res) => {
         const allJobs = await getAllJobs();
         res.json(allJobs);
     } catch (error) {
-        console.error("Error information: ", error);
+        logger.error("Error information: ", error);
         return res.status(500).json({ error_text: "Internal server error" });
     }
 });
 
 setInterval(() => {
-    console.log('Checking for pending jobs...');
+    logger.info('Checking for pending jobs...');
     processPendingJobs();
 }, 60000);
 
 app.listen(3000, () => {
-    console.log('Server running on port 3000');
+    logger.info('Server running on port 3000');
 });

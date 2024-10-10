@@ -1,5 +1,6 @@
 const axios = require('axios');
 require('dotenv').config();
+const { logger } = require('../services/logger');
 
 async function summarizeText(text) {
     try {
@@ -16,6 +17,7 @@ async function summarizeText(text) {
 
         return response;
     } catch (error) {
+        logger.error("Error in LLM: ", error);
         return null;
     }
 }

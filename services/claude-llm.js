@@ -1,5 +1,6 @@
 const { Anthropic } = require('@anthropic-ai/sdk');
 require('dotenv').config();
+const { logger } = require('../services/logger');
 
 const anthropic = new Anthropic({
     apiKey: process.env.CLAUDE_API_KEY
@@ -22,6 +23,7 @@ async function summarizeTextClaude(text) {
         });
         return message;
     } catch (error) {
+        logger.error("Error in LLM: ", error);
         return null;
     }
 }
