@@ -89,6 +89,9 @@ Using cURL:
 ```bash
 curl --location 'localhost:3000/jobs'
 ```
+## Error Handling
+
+For error handling, I use Winston as logger to get all of the log information in a one simple file for traceability.
 
 ## Libraries Used
 
