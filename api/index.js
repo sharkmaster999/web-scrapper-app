@@ -37,7 +37,7 @@ app.get('/jobs', async(req, res) => {
 });
 
 setInterval(() => {
-    logger.info('Checking for pending jobs...');
+    console.log('Checking for pending jobs...');
     processPendingJobs();
 }, 60000);
 
