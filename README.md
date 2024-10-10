@@ -25,12 +25,22 @@ This is a simple **Web Scraper Application** built using **Node.js** and **Seque
    git clone https://github.com/sharkmaster999/web-scraper-app.git
    cd web-scraper-app
 
-2. Install Docker and run this command:
+2. Create new environment setup file:
+
    ```bash
-   docker compose up
+   cp .env.sample .env
 
-3. You can now use the web scrapper app via https://localhost:3000/jobs to create new web scrapping job.
+3. Setup your Docker Desktop and run this command:
+   ```bash
+   docker compose up -d
 
+4. (Optional) Alternatively you can setup Red Hat Podman Desktop and run the command below:
+   ```bash
+   podman compose up -d
+
+4. Test the web scrapper app to see if the project is fully setup via https://localhost:3000.
+
+5. To run the LLM, provide the API key in the `.env` file. For this project I use OpenAI but you can provide API keys as well with Claude or Hugging Face LLM's.
 
 ## API Reference
 
