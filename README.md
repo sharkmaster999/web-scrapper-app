@@ -20,13 +20,11 @@ This is a simple **Web Scraper Application** built using **Node.js** and **Seque
 ## Installation
 
 1. Clone the repository:
-
    ```bash
    git clone https://github.com/sharkmaster999/web-scraper-app.git
    cd web-scraper-app
 
 2. Create new environment setup file:
-
    ```bash
    cp .env.sample .env
 
@@ -38,13 +36,25 @@ This is a simple **Web Scraper Application** built using **Node.js** and **Seque
    ```bash
    podman compose up -d
 
-4. Test the web scrapper app to see if the project is fully setup via https://localhost:3000.
+![podman compose up](https://github.com/sharkmaster999/web-scrapper-app/blob/master/images/podman-compose-up.png?raw=true)
 
-5. To run the LLM, provide the API key in the `.env` file. For this project I use OpenAI but you can provide API keys as well with Claude or Hugging Face LLM's.
+
+5. Make sure that every containers are running.
+
+![containers](https://github.com/sharkmaster999/web-scrapper-app/blob/master/images/containers.png?raw=true)
+
+
+6. Test the web scrapper app to see if the project is fully setup via http://localhost:3000.
+
+7. To run the LLM, provide the API key in the `.env` file. For this project I use OpenAI but you can provide API keys as well with Claude or Hugging Face LLM's.
 
 ## API Reference
 
-#### Create new job
+### Create new job
+
+![create job](https://github.com/sharkmaster999/web-scrapper-app/blob/master/images/create-job.png?raw=true)
+
+#### Request:
 
 ```http
   POST /jobs
@@ -54,19 +64,29 @@ This is a simple **Web Scraper Application** built using **Node.js** and **Seque
 | :-------- | :------- | :------------------------- |
 | `url`     | `string` | **Required**. Web page URL |
 
-Returns the job queue information.
+Using cURL:
+```bash
+curl --location 'localhost:3000/jobs' \
+--header 'Content-Type: application/json' \
+--data '{
+    "url": "https://text.npr.org/nx-s1-5141959"
+}'
+```
 
-#### Get job status
+### Get all the processed jobs
+
+![get all job](https://github.com/sharkmaster999/web-scrapper-app/blob/master/images/get-all-jobs.png?raw=true)
+
+#### Request:
 
 ```http
   GET /jobs
 ```
 
-Gets all the jobs queued status.
-
-## Database Connection Management
-
-The app uses two primary functions to manage database connections namely `openConnection()` and `closeConnection()`
+Using cURL:
+```bash
+curl --location 'localhost:3000/jobs'
+```
 
 ## Libraries Used
 
