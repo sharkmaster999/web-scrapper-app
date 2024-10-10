@@ -1,7 +1,7 @@
 const winston = require('winston');
 
 const logger = winston.createLogger({
-    level: 'error',
+    level: 'silly',
     format: winston.format.combine(
         winston.format.timestamp(),
         winston.format.json()
