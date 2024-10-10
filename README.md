@@ -101,7 +101,10 @@ For error handling, I use Winston as logger to get all of the log information in
 - **OpenAI LLM**: A new series of AI models designed to spend more time thinking before they respond.
 - **Claude LLM**: Is powerful and extensible, it’s also the most trustworthy and reliable AI available.
 - **Hugging Face**
-- **Nodemon**: Is a tool that helps develop Node.js based applications by automatically restarting the node application when file changes in the directory are detected.
+- **Nodemon**: A tool that helps develop Node.js based applications by automatically restarting the node application when file changes in the directory are detected.
+- **ESLint**: A static code analysis tool for identifying problematic patterns found in JavaScript code.
+- **Winston**: Designed to be a simple and universal logging library with support for multiple transports.
+- **Husky**: Automatically lint your commit messages, code, and run tests upon committing or pushing.
 
 ## Support
 
