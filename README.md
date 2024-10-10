@@ -28,11 +28,11 @@ This is a simple **Web Scraper Application** built using **Node.js** and **Seque
    ```bash
    cp .env.sample .env
 
-3. Setup your Docker Desktop and run this command:
+3. Setup your [Docker Desktop](https://www.docker.com/products/docker-desktop/) and run this command:
    ```bash
    docker compose up -d
 
-4. (Optional) Alternatively you can setup Red Hat Podman Desktop and run the command below:
+4. (Optional) Alternatively you can setup [Red Hat Podman Desktop](https://developers.redhat.com/products/podman-desktop/overview) and run the command below:
    ```bash
    podman compose up -d
 
@@ -47,6 +47,8 @@ This is a simple **Web Scraper Application** built using **Node.js** and **Seque
 6. Test the web scrapper app to see if the project is fully setup via http://localhost:3000.
 
 7. To run the LLM, provide the API key in the `.env` file. For this project I use OpenAI but you can provide API keys as well with Claude or Hugging Face LLM's.
+
+8. You can use [job.postman_collection.json](https://github.com/sharkmaster999/web-scrapper-app/blob/master/job.postman_collection.json) file to import collection request from [Postman](https://www.postman.com/downloads/).
 
 ## API Reference
 
