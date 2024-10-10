@@ -7,7 +7,7 @@ const { processPendingJobs } = require('../services/worker');
 app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.send('Hello World!');
 });
 
 app.post('/jobs', async(req, res) => {

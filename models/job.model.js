@@ -82,7 +82,7 @@ async function updateJob(id, status, error = '') {
 }
 
 async function getAllJobs() {
-    let allJobs = [];
+    const allJobs = [];
     try {
         await openConnection();
 
@@ -102,7 +102,7 @@ async function getAllJobs() {
                 url: job.url,
                 status: job.status,
                 [job.status === 'failed' ? 'error_message' : 'summary']: job.status === 'failed' ? job.error_message : result.summary
-            }
+            };
 
             allJobs.push(jobInfo);
         }

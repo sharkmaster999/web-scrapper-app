@@ -20,4 +20,4 @@ async function summarizeText(text) {
     }
 }
 
-module.exports = { summarizeText }
+module.exports = { summarizeText };
