@@ -17,3 +17,5 @@ jobs:
         run: yarn install
       - name: ESlint checks
         run: yarn run lint .
+      - name: Fixing any lint issues
+        run: yarn run lint:fix
